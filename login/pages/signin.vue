@@ -5,7 +5,7 @@
         Login Page
       </h1>
       <h2 class="subtitle">
-        after long will redirect to: {{ callback }}
+        after long will redirect to: {{ callback.uri }}
       </h2>
     </div>
   </section>
@@ -13,12 +13,16 @@
 
 <script>
 export default {
-  asyncData(context) {
-    if (context.route.query.callback) { 
-      // context.state.success(context.route.query.callback)
-      return { callback: context.route.query.callback }
-    } else {
-      return { callback: 'error, callback not defined' }
+  computed: {
+    callback() {
+      this.$store.state.signin.successURI = 'hello'
+      if (this.$route.query.callback) { 
+        // this.store.state.success(context.route.query.callback)
+        // store.dispatch('success', 'hello world')
+        return { uri: this.$route.query.callback }
+      } else {
+        return { uri: 'error, callback not defined' }
+      }
     }
   }
 }
